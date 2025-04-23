@@ -1,0 +1,41 @@
+# This is a Databricks asset bundle definition for dab.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+bundle:
+  name: dab
+
+include:
+  - resources/*.yml
+  - clusters/*.yml
+
+variables: 
+  dab_notebook:
+    description: This is my dab notebook
+    default: ../notebooks/hello.ipynb
+  partition_date:
+    description: Data as of date
+    default: "2025-01-22"
+
+targets:
+  dev:
+    # The default target uses 'mode: development' to create a development copy.
+    # - Deployed resources get prefixed with '[dev my_user_name]'
+    # - Any job schedules and triggers are paused by default.
+    # See also https://docs.databricks.com/dev-tools/bundles/deployment-modes.html.
+    mode: development
+    default: true
+    workspace:
+      host: https://adb-3176174709303434.14.azuredatabricks.net
+
+  prod:
+    mode: production
+    workspace:
+      host: https://adb-3176174709303434.14.azuredatabricks.net
+      # We explicitly specify /Workspace/Users/dbradmin@helleng.com to make sure we only have a single copy.
+      root_path: /Workspace/Users/uc_demo_admin@chandanduttaoutlook.onmicrosoft.com/.bundle/${bundle.name}/${bundle.target}
+    permissions:
+      - user_name: uc_demo_admin@chandanduttaoutlook.onmicrosoft.com/
+        level: CAN_MANAGE
+    run_as:
+      user_name: uc_demo_admin@chandanduttaoutlook.onmicrosoft.com/
+    variables: 
+      dab_notebook: ../notebooks/hello_prod.ipynb
