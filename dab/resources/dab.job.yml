@@ -10,7 +10,7 @@ resources:
           unit: DAYS
       email_notifications:
         on_failure:
-          - dbradmin@helleng.com
+          - chandan.dutta@outlook.com
       tasks:
         - task_key: t1
           job_cluster_key: job_cluster
