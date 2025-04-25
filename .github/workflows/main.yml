@@ -10,7 +10,7 @@ concurrency: "1"
 # main branch or an existing pull request's head branch is updated.
 on:
   pull_request:
-  branches: [main]
+    branches: [main]
 
 jobs:
   # Used by the "pipeline_update" job to deploy the bundle.
